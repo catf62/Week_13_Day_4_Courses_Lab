@@ -1,7 +1,7 @@
 package com.coursebooking.coursebooking.models;
 
 
-import org.springframework.data.annotation.Id;
+
 
 import javax.persistence.*;
 
@@ -11,7 +11,6 @@ public class Booking {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
     @Column(name = "date")
@@ -27,6 +26,17 @@ public class Booking {
         this.date = date;
         this.course = course;
         this.customer = customer;
+    }
+
+    public Booking() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDate() {
