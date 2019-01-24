@@ -3,6 +3,8 @@ package com.coursebooking.coursebooking.models;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -16,11 +18,15 @@ public class Booking {
     @Column(name = "date")
     private String date;
 
-    @Column(name = "course")
-    private Course course;
-
-    @Column(name = "customer")
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "course_id", nullable = false)
+    private Course course;
 
     public Booking(String date, Course course, Customer customer) {
         this.date = date;
