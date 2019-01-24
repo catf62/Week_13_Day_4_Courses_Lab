@@ -13,12 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CoursebookingApplicationTests {
 
 	@Autowired
-	CustomerRepository customerRepostitory;
+	CustomerRepository customerRepository;
 
 	@Autowired
 	BookingRepository bookingRepository;
@@ -33,11 +37,18 @@ public class CoursebookingApplicationTests {
 	@Test
 	public void createCustomerBooking(){
 		Customer laura = new Customer("Laura", "Inverness", 33);
-		customerRepostitory.save(laura);
+		customerRepository.save(laura);
 		Course codeClan = new Course("CodeClan", "Edinburgh", StarRatingType.FIVE);
 		courseRepository.save(codeClan);
 		Booking lauraCodeclan = new Booking("22-05-2029", codeClan, laura);
 	}
+
+	@Test
+	public void canGetAllCoursesForRatingFive(){
+		List<Course> found = courseRepository.findCoursesByRating(StarRatingType.FIVE);
+		assertEquals(1, found.size());
+	}
+
 
 }
 
